@@ -1,8 +1,12 @@
 #include "Gameplay/GameplayService.h"
 #include "Gameplay/GameplayController.h"
+#include "Main/GameService.h"
+
 
 namespace Gameplay 
 {
+	using namespace Main;
+
 	GameplayService::GameplayService() 
 	{
 		gameplay_controller = new GameplayController();
@@ -15,7 +19,7 @@ namespace Gameplay
 
 	void GameplayService::searchElement(SearchType search_type)
 	{
-		gameplay
+		// TODO
 	}
 
 	void GameplayService::initialize() 
@@ -25,12 +29,18 @@ namespace Gameplay
 
 	void GameplayService::update() 
 	{
-		gameplay_controller->update();
+		if (GameService::getGameState() == GameState::GAMEPLAY) 
+		{
+			gameplay_controller->update();
+		}
 	}
 
 	void GameplayService::render()
 	{
-		gameplay_controller->render();
+		if (GameService::getGameState() == GameState::GAMEPLAY)
+		{
+			gameplay_controller->render();
+		}
 	}
 
 	void GameplayService::reset()
