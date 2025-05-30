@@ -1,5 +1,6 @@
 #include "Gameplay/GameplayService.h"
 #include "Gameplay/GameplayController.h"
+#include "Gameplay/StickCollection/StickCollectionController.h"
 #include "Main/GameService.h"
 
 
@@ -15,11 +16,12 @@ namespace Gameplay
 	GameplayService::~GameplayService() 
 	{
 		delete(gameplay_controller);
+		delete(collection_controller);
 	}
 
 	void GameplayService::searchElement(SearchType search_type)
 	{
-		// TODO
+		collection_controller->searchElement(search_type);
 	}
 
 	void GameplayService::initialize() 
@@ -47,4 +49,8 @@ namespace Gameplay
 	{
 		gameplay_controller->reset();
 	}
+
+	Collection::SearchType GameplayService::getCurrentSearchType() { return collection_controller->getSearchType(); }
+
+	int GameplayService::getNumOfSticks() { return collection_controller->getNumOfElements();  }
 }

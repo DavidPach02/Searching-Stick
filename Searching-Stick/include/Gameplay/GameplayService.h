@@ -1,29 +1,31 @@
 #pragma once
 #include <SFML/System/String.hpp>
+#include "Gameplay/StickCollection/StickCollectionModel.h"
+#include "Gameplay/StickCollection/StickCollectionController.h"
 
 namespace Gameplay 
 {
-	enum class SearchType 
-	{
-		LINEAR_SEARCH,
-		BINARY_SEARCH
-	};
-
+	using namespace Collection;
 	class GameplayController;
 
 	class GameplayService {
 	private:
 		GameplayController* gameplay_controller;
-		static SearchType search_type;
+		StickCollectionController* collection_controller;
 
 	public:
 		GameplayService();
 		~GameplayService();
 
-		void searchElement(SearchType search_type);
 		void initialize();
 		void update();
 		void render();
 		void reset();
+
+		void searchElement(SearchType search_type);
+
+		Collection::SearchType getCurrentSearchType();
+
+		int getNumOfSticks();
 	};
 }
