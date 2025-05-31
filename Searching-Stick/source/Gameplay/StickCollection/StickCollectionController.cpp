@@ -1,9 +1,13 @@
 #include "Gameplay/StickCollection/StickCollectionController.h"
+#include "Global/ServiceLocator.h"
+#include "Gameplay/StickCollection/Stick.h"
 
 namespace Gameplay
 {
 	namespace Collection
 	{
+		using namespace Global;
+
 		StickCollectionController::StickCollectionController()
 		{
 
@@ -16,7 +20,8 @@ namespace Gameplay
 
 		void StickCollectionController::initialize()
 		{
-
+			this->initializeSticks();
+			this->updateSticksPosition();
 		}
 
 		void StickCollectionController::update()
@@ -45,12 +50,42 @@ namespace Gameplay
 
 		void StickCollectionController::initializeSticks()
 		{
+			// Calculate rect width
+			float rect_width = calculateStickWidth();
 
+			// Create the sticks
+			for (int i = 0; i < collection_model->number_of_elements; i++)
+			{
+				// Calculate height
+				float rect_height = calculateStickHeight(i);
+
+				// Set size of rect
+				sf::Vector2f rect_size = sf::Vector2f(rect_width, rect_height);
+
+				// Initialize rect
+				sticks[i]->stick_view->initialize(rect_size, sf::Vector2f(0, 0), 0, collection_model->found_element_color);
+			}
 		}
 
 		float StickCollectionController::calculateStickWidth()
 		{
-			return 0.f;
+			// Get width of window
+			float total_space = static_cast<float>(ServiceLocator::getInstance()->getGraphicService()->getGameWindow()->getSize().x);
+
+			// Calculate total spacing 
+			float total_spacing = collection_model->space_percentage * total_space;
+
+			// Caculate space between sticks
+			float space_between = total_spacing / (collection_model->number_of_elements - 1);
+			collection_model->setElementSpacing(space_between);
+
+			// Calculate space for all rect
+			float rect_space = total_space - total_spacing;
+
+			// Calculate width for each rect
+			float rect_width = rect_space / collection_model->number_of_elements;
+
+			return rect_width;
 		}
 
 		void StickCollectionController::updateSticksPosition()
@@ -70,7 +105,7 @@ namespace Gameplay
 
 		float StickCollectionController::calculateStickHeight(int array_pos)
 		{
-			return 0.f;
+			return (static_cast<float>(array_pos + 1) / collection_model->number_of_elements) * collection_model->max_element_height;
 		}
 
 		void StickCollectionController::destroy()

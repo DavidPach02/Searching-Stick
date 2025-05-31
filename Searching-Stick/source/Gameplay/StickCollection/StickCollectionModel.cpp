@@ -24,7 +24,7 @@ namespace Gameplay
 
 		}
 
-		void StickCollectionModel::setElementSpacing(float space)
+		void StickCollectionModel::setElementSpacing(float space_percentage)
 		{
 
 		}
