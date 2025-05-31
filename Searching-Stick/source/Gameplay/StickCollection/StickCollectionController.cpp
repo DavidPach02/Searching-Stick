@@ -6,13 +6,14 @@
 namespace Gameplay
 {
 	namespace Collection
-	{
+	{ 
 		using namespace Global;
 
 		StickCollectionController::StickCollectionController()
 		{
 			collection_view = new StickCollectionView();
 			collection_model = new StickCollectionModel();
+			
 		}
 
 		StickCollectionController::~StickCollectionController()
@@ -23,10 +24,10 @@ namespace Gameplay
 
 		void StickCollectionController::initialize()
 		{
-			collection_view->initialize();
-			collection_model->initialize();
 			initializeSticks();
 			updateSticksPosition();
+			collection_view->initialize();
+			collection_model->initialize();
 		}
 
 		void StickCollectionController::update()
