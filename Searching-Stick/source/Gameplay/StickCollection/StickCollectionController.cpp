@@ -13,6 +13,7 @@ namespace Gameplay
 		{
 			collection_view = new StickCollectionView();
 			collection_model = new StickCollectionModel();
+			initializeSticksArray();
 			
 		}
 
@@ -69,7 +70,7 @@ namespace Gameplay
 				sf::Vector2f rect_size = sf::Vector2f(rect_width, rect_height);
 
 				// Initialize rect
-				sticks[i]->stick_view->initialize(rect_size, sf::Vector2f(0, 0), 0, collection_model->found_element_color);
+				sticks[i]->stick_view->initialize(rect_size, sf::Vector2f(0, 0), 0, collection_model->element_color);
 			}
 		}
 
@@ -106,7 +107,10 @@ namespace Gameplay
 
 		void StickCollectionController::initializeSticksArray()
 		{
-
+			for (int i = 0; i < collection_model->number_of_elements; i++)
+			{
+				sticks.push_back(new Stick());
+			}
 		}
 
 		float StickCollectionController::calculateStickHeight(int array_pos)
