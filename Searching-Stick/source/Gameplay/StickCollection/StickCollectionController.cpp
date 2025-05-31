@@ -14,7 +14,6 @@ namespace Gameplay
 			collection_view = new StickCollectionView();
 			collection_model = new StickCollectionModel();
 			initializeSticksArray();
-			
 		}
 
 		StickCollectionController::~StickCollectionController()
@@ -109,7 +108,7 @@ namespace Gameplay
 		{
 			for (int i = 0; i < collection_model->number_of_elements; i++)
 			{
-				sticks.push_back(new Stick());
+				sticks.push_back(new Stick(0));
 			}
 		}
 
