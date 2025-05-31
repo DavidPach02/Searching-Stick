@@ -1,13 +1,9 @@
 #include "Gameplay/GameplayService.h"
 #include "Gameplay/GameplayController.h"
 #include "Gameplay/StickCollection/StickCollectionController.h"
-#include "Main/GameService.h"
-
 
 namespace Gameplay 
 {
-	using namespace Main;
-
 	GameplayService::GameplayService() 
 	{
 		gameplay_controller = new GameplayController();
@@ -27,27 +23,25 @@ namespace Gameplay
 	void GameplayService::initialize() 
 	{
 		gameplay_controller->initialize();
+		collection_controller->initialize();
 	}
 
 	void GameplayService::update() 
 	{
-		if (GameService::getGameState() == GameState::GAMEPLAY) 
-		{
-			gameplay_controller->update();
-		}
+		gameplay_controller->update();
+		collection_controller->initialize();
 	}
 
 	void GameplayService::render()
 	{
-		if (GameService::getGameState() == GameState::GAMEPLAY)
-		{
-			gameplay_controller->render();
-		}
+		gameplay_controller->render();
+		collection_controller->render();
 	}
 
 	void GameplayService::reset()
 	{
 		gameplay_controller->reset();
+		collection_controller->reset();
 	}
 
 	Collection::SearchType GameplayService::getCurrentSearchType() { return collection_controller->getSearchType(); }

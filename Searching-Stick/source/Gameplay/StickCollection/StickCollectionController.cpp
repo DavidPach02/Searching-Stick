@@ -1,4 +1,5 @@
 #include "Gameplay/StickCollection/StickCollectionController.h"
+#include "Gameplay/StickCollection/StickCollectionView.h"
 #include "Global/ServiceLocator.h"
 #include "Gameplay/StickCollection/Stick.h"
 
@@ -10,18 +11,22 @@ namespace Gameplay
 
 		StickCollectionController::StickCollectionController()
 		{
-
+			collection_view = new StickCollectionView();
+			collection_model = new StickCollectionModel();
 		}
 
 		StickCollectionController::~StickCollectionController()
 		{
-
+			delete(collection_view);
+			delete(collection_model);
 		}
 
 		void StickCollectionController::initialize()
 		{
-			this->initializeSticks();
-			this->updateSticksPosition();
+			collection_view->initialize();
+			collection_model->initialize();
+			initializeSticks();
+			updateSticksPosition();
 		}
 
 		void StickCollectionController::update()
